@@ -22,6 +22,8 @@ An example to create an AKS cluster with secrets from Azure Key Vault with Bicep
 
 * Clone the fork locally or in your Azure Cloud Shell.
 
+* To use the `gh` commands, install [GitHub CLI.](https://cli.github.com/)
+
 
 ## Deployment
 
@@ -33,11 +35,32 @@ An example to create an AKS cluster with secrets from Azure Key Vault with Bicep
 
 `az account list --query "[?isDefault]"`
 
-* Follow the ["Generate deployment credentials"](https://cda.ms/2kx) and ["Configure the GitHub secrets"](https://cda.ms/2ky) of this guide.  Create secrets in the repo for `AZURE_CREDENTIALS`, `AZURE_RG`, and `AZURE_SUBSCRIPTION` to connect your Azure account to the GitHub repo for actions to run.
+* Follow the ["Generate deployment credentials"](https://cda.ms/2kx) and ["Configure the GitHub secrets"](https://cda.ms/2ky) of this guide.  Create secrets in the repo for `AZURE_CREDENTIALS`, `AZURE_RG`, and `AZURE_SUBSCRIPTION` to connect your Azure account to the GitHub repo for actions to run OR use the CLI commmands below.
 
 `az ad sp create-for-rbac --name {myApp} --role contributor --scopes /subscriptions/{subscription-id}/resourceGroups/{MyResourceGroup} --sdk-auth`
 
+Using GitHub CLI:
+
+```
+gh secret set AZURE_SUBSCRIPTION -r="<org/repo-name>" -b <subscription id>`
+gh secret set AZURE_RG -r="<org/repo-name>" -b <resource group>`
+gh secret set AZURE_CREDENTIALS -r="<org/repo-name>" -b  \
+"{ \
+  "clientId": "<client id>", \
+  "clientSecret": "<secret>", \
+  "subscriptionId": "<subscription id> ", \
+  "tenantId": "<tenant id>", \
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com", \
+  "resourceManagerEndpointUrl": "https://management.azure.com/", \
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/", \
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/", \
+  "galleryEndpointUrl": "https://gallery.azure.com/", \
+  "managementEndpointUrl": "https://management.core.windows.net/" \
+}"
+```
+  
 * [Create a Key Vault](https://cda.ms/2kB)
+
 `az keyvault create --name "<your-unique-keyvault-name>" --resource-group "myResourceGroup" --location "EastUS"`
 
 
