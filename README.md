@@ -66,7 +66,13 @@ gh secret set AZURE_CREDENTIALS -r="<org/repo-name>" -b  \
 
 * [Store your credenitals `sshRSAPublicKey`,`servicePrincipalClientId`, and `servicePrincipalClientSecret` parameters as secrets.](https://cda.ms/2kC) These secrets will have your SSH keys to access the cluster nodes for troubleshooting, your Azure subscription ID, and your Service Principal credentials.
 ```
-az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "sshRSAPublicKey" --value "rsa-ssh etc etc etc"
+# create a bash variable to your ssh key, example:
+
+```
+SSH_ID=`cat  ~/.ssh/id_rsa.pub`
+```
+
+az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "sshRSAPublicKey" --value "$SSH_ID"
 az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "servicePrincipalClientId" --value "<output from service principal creation>"
 az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "servicePrincipalClientSecret" --value "<output from service principal creation>"
 ```
