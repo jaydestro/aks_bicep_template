@@ -122,21 +122,3 @@ voteappprod   azure-vote-back                  ClusterIP      10.0.62.6      <no
 voteappprod   azure-vote-front                 LoadBalancer   10.0.19.38     1.2.3.4   80:30305/TCP    47h
 ```
 ![Voting App](images/vote-app.png)
-
-## With Azure CLI
-
-You can execute the following command in the root of the directory with an autheticated Azure CLI.
-
-This example creates a resource group then creates a deployment with ARM.
-
-```
-az login 
-
-az group create -n <resource group name> -l <location>
-
-az deployment group create  --name <deployment name>  --resource-group <resource group name> --template-file aks.bicep --parameters='@azuredeploy.parameters.json'
-
-az aks get-credentials --name voteappprod --resource group <resource group name>
-
-kubectl apply -f ./manifests/deployment.yml
-```
