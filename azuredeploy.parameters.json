@@ -6,10 +6,10 @@
       "value": "aksadmin"
     },
     "uniqueclustername": {
-      "value": "<cluster-name>"
+      "value": "aksbicepcluster"
     },
     "dnsPrefix": {
-      "value": "<dns-name>"
+      "value": "aksbicepcluster"
     },    
     "sshRSAPublicKey": {
       "reference": {
